@@ -15,6 +15,12 @@ defmodule Quaff.Debug do
   def start() do
     :debugger.start()
   end
+  
+  def load_all(path) do
+     list = :filelib.fold_files(path, ".ex", true,fn(f,a)-> [f|a] end ,[])
+     Enum.each(list, fn module -> load(module) end)
+  end
+
   def load(module) do
     load(module,[])
   end
